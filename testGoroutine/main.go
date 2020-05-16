@@ -16,6 +16,6 @@ func main() {
 
 	go goroutine.TestSend()
 	go goroutine.TestReceive()
-	time.Sleep(time.Second* 5)
+	time.Sleep(time.Second* 10)
 
 }
