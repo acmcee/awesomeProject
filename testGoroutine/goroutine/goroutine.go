@@ -3,8 +3,10 @@ package goroutine
 import (
 	"fmt"
 	"time"
+	"sync"
 )
 
+var WG sync.WaitGroup
 
 var mChan = make(chan int, 5)
 var timeoutChan = make(chan bool)
@@ -22,7 +24,6 @@ func TestSend()  {
 		mChan <- i
 		fmt.Println("我发送了: ", i)
 		time.Sleep(time.Millisecond* 10)
-
 	}
 
 	timeoutChan <- true
@@ -44,6 +45,18 @@ func TestReceive()  {
 
 		}
 	}
+}
 
+func TestRead() {
+	for i := 0; i < 3; i++ {
+		WG.Add(1)
+	}
+}
 
+func TestWrite() {
+	for i := 0; i < 3; i++ {
+		time.Sleep(time.Second)
+		fmt.Println("GET : ", i)
+		WG.Done()
+	}
 }
