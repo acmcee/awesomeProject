@@ -22,7 +22,7 @@ func (d *Dog)Run()  string { 	// 已经隐式实现了接口
 
 func main() {
 
-	dog := make(Dog)
+	dog := new(Dog)
 	dog.Name = "旺财"
 	dog.ID = 1
 	dog.Age = 5
