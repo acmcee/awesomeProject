@@ -22,6 +22,7 @@ func deleteFromMap()  {
 
 
 func testCopy()  {
+	// * copy 只会拷贝到目标slice 大小的数据，不会自动扩容dst 的长度
 	srcSlice:=make([] string, 5)
 	srcSlice[0] = "src-111"
 	srcSlice[1] = "src-222"
@@ -40,10 +41,14 @@ func testCopy()  {
 
 
 func makeSlice() []string {
+	//  append 方法，会自动扩容slice ，不用append 容易越界
 	mSlice:= make([]string, 2)
 	fmt.Println(reflect.TypeOf(mSlice))
 	mSlice[0] = "dog"
 	mSlice[1] = "这种"
+	//mSlice[3] = "越界操作" // 会失败
+	fmt.Println(mSlice)
+	mSlice= append(mSlice, "张三")
 	fmt.Println(mSlice)
 	return mSlice
 
