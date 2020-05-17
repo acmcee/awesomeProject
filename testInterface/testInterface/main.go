@@ -18,7 +18,13 @@ func PrintAll(vals ...interface{}) {
 
 }
 
+func TestPrint(v ...interface{}) {
+	fmt.Println(v)
+}
+
 func main() {
-	myArray := []interface{}{"1", "1112", "张三", 4, true, false, 100000000000}
-	PrintAll(myArray...)
+	myArray1 := []interface{}{"1", "1112", "张三", 4, true, false, 100000000000}
+	myArray2 := []interface{}{"1", "2", "张三"}
+	myArray1 = append(myArray1, myArray2...)
+	TestPrint(myArray1...)
 }

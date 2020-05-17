@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"reflect"
+)
 
 /*
 指针的基本使用
@@ -52,13 +55,37 @@ func TestArrayPoint() {
 
 }
 
+type Point struct {
+	name string
+}
+
+func (p *Point) TestPointMethod() {
+	fmt.Println("我是个指针方法，谁都可以调我")
+}
+
+func (p Point) TestMethod() {
+	fmt.Println("我是个普通的值方法")
+}
+
 func main() {
 	// 测试指针的使用，获取指针的值，以及取对应的指针
 	//TestPoint()
 
 	// 指针数组
-	TestPintArray()
+	//TestPintArray()
 
 	// 数组的指针
-	TestArrayPoint()
+	//TestArrayPoint()
+
+	ptr := new(Point)
+	ptr.TestPointMethod()
+	ptr.TestMethod()
+	p := *ptr
+	fmt.Println(reflect.TypeOf(p))
+	p.TestPointMethod()
+	p.TestMethod()
+
+	p2 := Point{name: "张三"}
+	p2.TestPointMethod()
+	(&p2).TestPointMethod()
 }
