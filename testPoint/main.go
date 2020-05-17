@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"reflect"
 )
 
 /*
@@ -60,6 +59,8 @@ type Point struct {
 }
 
 func (p *Point) TestPointMethod() {
+	fmt.Println("我的地址是：")
+	fmt.Println(&p)
 	fmt.Println("我是个指针方法，谁都可以调我")
 }
 
@@ -77,15 +78,18 @@ func main() {
 	// 数组的指针
 	//TestArrayPoint()
 
-	ptr := new(Point)
+	/*ptr := new(Point)
 	ptr.TestPointMethod()
 	ptr.TestMethod()
 	p := *ptr
 	fmt.Println(reflect.TypeOf(p))
 	p.TestPointMethod()
 	p.TestMethod()
+	*/
+	p := new(Point)
+	p.name = "zhangsan"
+	fmt.Println(&p)
+	p.TestPointMethod()
+	p.TestMethod()
 
-	p2 := Point{name: "张三"}
-	p2.TestPointMethod()
-	(&p2).TestPointMethod()
 }
