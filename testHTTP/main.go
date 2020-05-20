@@ -3,7 +3,11 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"sync"
 )
+
+var mu sync.Mutex
+var count int
 
 type Server struct {
 	message string
@@ -24,7 +28,7 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	s.message += "\n"
 	s.message += "\n"
 	s.message += fmt.Sprintln(r)
-	fmt.Fprintf(w, s.message)
+	fmt.Fprint(w, s.message)
 }
 
 func RootHTTPHandler(w http.ResponseWriter, r *http.Request) {
@@ -42,7 +46,14 @@ func RootHTTPHandler(w http.ResponseWriter, r *http.Request) {
 	message += "\n"
 	message += "\n"
 	message += fmt.Sprintln(r)
-	fmt.Fprintf(w, message)
+	fmt.Fprint(w, message)
+}
+
+func CountHTTPHandler(w http.ResponseWriter, r *http.Request) {
+	mu.Lock()
+	count++
+	mu.Unlock()
+	fmt.Fprintln(w, count)
 }
 
 func main() {
@@ -50,6 +61,7 @@ func main() {
 	//http.Handle("/", &Server{})
 	// 测试使用func 来作为handler
 	http.HandleFunc("/", RootHTTPHandler)
+	http.HandleFunc("/count", CountHTTPHandler)
 	err := http.ListenAndServe(":8100", nil)
 	if err != nil {
 		fmt.Println(err.Error())
