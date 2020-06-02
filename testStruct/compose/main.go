@@ -38,4 +38,11 @@ func main() {
 	dog.Run()
 	dog.Eat()
 	dog.LoveColor()
+
+	_ = Dog{
+		Animal: Animal{}, // 这里必须是用实例化的对象。组合后是不能直接赋值的
+		ID:     0,
+		Name:   "",
+		Age:    0,
+	}
 }
