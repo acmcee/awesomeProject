@@ -10,9 +10,9 @@ type Node struct {
 
 func (n *Node) Find(k int) *Node {
 	if n != nil {
-		if k > n.data {
+		if k < n.data {
 			return n.left.Find(k)
-		} else if k < n.data {
+		} else if k > n.data {
 			return n.right.Find(k)
 		} else {
 			return n
@@ -23,14 +23,14 @@ func (n *Node) Find(k int) *Node {
 }
 
 func (n *Node) Insert(k int) *Node {
-	if k > n.data {
+	if k < n.data {
 		if n.left != nil {
 			return n.left.Insert(k)
 		} else {
 			n.left = new(Node)
 			n.left.data = k
 		}
-	} else if k < n.data {
+	} else if k > n.data {
 		if n.right != nil {
 			return n.right.Insert(k)
 		} else {
