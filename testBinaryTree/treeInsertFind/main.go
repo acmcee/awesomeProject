@@ -70,6 +70,28 @@ func (n *Node) PostOrder() {
 	fmt.Printf("%d ", n.data)
 }
 
+var q = make(chan *Node, 10)
+
+func (n *Node) BSF() {
+
+	q <- n
+	closed := false
+	for k := range q {
+		fmt.Printf("%d ", k.data)
+		if k.left != nil {
+			q <- k.left
+		}
+		if k.right != nil {
+			q <- k.right
+		}
+		if k.right == nil && k.left == nil && !closed {
+			close(q)
+			closed = true
+		}
+	}
+
+}
+
 func main() {
 	Root := new(Node)
 	Root.data = 100
@@ -92,4 +114,14 @@ func main() {
 	fmt.Println()
 	fmt.Println("后序：")
 	Root.PostOrder()
+
+	fmt.Println()
+	fmt.Println("广度优先")
+	Root.BSF()
+
+	/*
+				100
+			50			150
+		30		70	110		170
+	*/
 }
