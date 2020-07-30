@@ -15,6 +15,7 @@ require (
 	github.com/google/uuid v1.1.1 // indirect
 	github.com/hashicorp/golang-lru v0.5.4
 	github.com/kballard/go-shellquote v0.0.0-20180428030007-95032a82bc51 // indirect
+	github.com/urfave/cli v1.22.4
 	go.uber.org/zap v1.15.0 // indirect
 	google.golang.org/grpc v1.29.1 // indirect
 
